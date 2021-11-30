@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 길이가 서로 다른 A, B, C 셰 개의 막대 길이가 주어지면 이 세 막대로 삼각형을 만들 수 있으면 "YES"를 출력하고, 만들 수 없으면 "NO"를 출력한다.
+
+      //My answer
+
+      function solution(a, b, c) {
+        let answer;
+        let sidearry = [a, b, c];
+        sidearry.sort((a, b) => b - a); //세 변의 길이를 내림차순으로 정렬하였다.
+        let lngside = sidearry[0];
+
+        if (lngside < sidearry[1] + sidearry[2]) {
+          answer = "YES";
+        } else {
+          answer = "NO";
+        }
+
+        return answer;
+      }
+
+      console.log(solution(13, 33, 17));
+      console.log(solution(6, 7, 11));
+
+      //세 변의 길이를 알고 있을 때 삼각형이 되기 위한 조건은 가장 긴 변이 다른 두 변의 길이의 합보다 더 작아야만 하기 때문에 다음과 같이 풀었다.
+
+      //lecture answer
+
+      function solution(a, b, c) {
+        let answer = "YES",
+          max;
+        let tot = a + b + c;
+        if (a > b) max = a;
+        else max = b;
+        if (c > max) max = c;
+        if (tot - max <= max) answer = "NO";
+        return answer;
+      }
+
+      //문제1을 응용하여 가장 긴 변을 구하였다. answer 기본을 YES로 만들고 두 변을 길이가 가장 긴 변의 길이보다 작거나 같을경우에만 "NO"를 반환하도록 하였다.
+    </script>
+  </body>
+</html>
