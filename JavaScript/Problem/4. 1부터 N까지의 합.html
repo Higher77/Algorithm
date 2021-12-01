@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 자연수 N이 입력되면 1부터 N까지의 합을 출력하는 프로그램을 작성하세요.
+
+      //My Answer
+
+      function solution(n) {
+        let answer = 0;
+
+        for (let i = 0; i <= n; i++) {
+          answer += i;
+        }
+
+        return answer;
+      }
+
+      console.log(solution(6));
+      console.log(solution(10));
+
+      // answer를 0으로 설정한 후 for문을 이용해 '더하기 할당'을 이용하여 0~n까지의 자연수를 더하였다.
+
+      //Lecture Answer
+
+      function solution(n) {
+        let answer = 0;
+        for (let i = 1; i <= n; i++) {
+          answer = answer + i;
+        }
+
+        return answer;
+      }
+    </script>
+  </body>
+</html>
