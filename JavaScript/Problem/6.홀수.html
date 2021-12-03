@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 7개의 자연수가 주어질 때, 이들 중 홀수인 자연수들을 모두 골라 그 합을 구하고, 고른 홀수들 중 최소값을 찾는 프로그램을 작성하세요.
+      //예를 들어, 7개의 자연수 12,77,38,41,53,92,85가 주어지면 이들 중 홀수는 77,41,53,85이므로 그 합은 256이 되고, 41<53<77<85이므로 홀수들 중 최소값은 41이 된다.
+
+      //My Answer
+
+      function solution(arr) {
+        let answer = [];
+        let oddary = [];
+        let totodd = 0;
+        let minodd;
+
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] % 2 !== 0) {
+            //2로 나눴을 때 나머지가 0이 아니라면 홀수다.
+            oddary.push(arr[i]); //홀수를 oddary배열에 Push
+            totodd += arr[i]; //할당연산자로 홀수의 전체 합.
+          }
+        }
+
+        minodd = oddary.sort((a, b) => a - b)[0]; //오름차순정렬하면 0번째 숫자가 가장 작다.
+
+        answer.push(totodd);
+        answer.push(minodd);
+
+        return answer;
+      }
+
+      arr = [12, 77, 38, 41, 53, 92, 85];
+
+      console.log(solution(arr));
+
+      // 주어진 배열을 올림차순으로 정렬한 후에 첫번째 값을 고르면 그 숫자가 최솟값이 된다.
+
+      //Lecture Answer
+
+      function solution(arr) {
+        let answer = [];
+        let sum = 0,
+          min = Number.MAX_SAFE_INTEGER; //min의 할당된 수를 높게잡아 첫번째로 들어가는 홀수가 min을 대체하게 만들었다.
+        for (let x of arr) {
+          if (x % 2 === 1) {
+            sum += x;
+            if (x < min) min = x; //홀수가 되는 수끼리 비교하여 작은게 Min에 할당되기 때문에 나처럼 일부러 배열을 만들필요가 없다. 훨씬 효율적이다!
+          }
+        }
+        answer.push(sum);
+        answer.push(min);
+        return answer;
+      }
+    </script>
+  </body>
+</html>
