@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 대문자로 이루어진 영어단어가 입렬되면 단어에 포함된 'A'를 모두 '#'으로 바꾸어 출력하는 프로그램을 작성하세요.
+
+      //My Answer
+
+      function solution(str) {
+        let answer;
+
+        answer = str.replace(/A/g, "#");
+
+        return answer;
+      }
+
+      let str = "BANANA";
+      console.log(solution(str));
+
+      //replace에 들어가는 첫번째 인자는 대체할 문자가 들어가는데 그냥 문자를 넣으면 일치하는 첫번째 문자만 바꿔준다.
+
+      //대신 정규식을 이용하면 일치하는 모든 문자로 바꿀 수 있다. 정규식으로 찾으려는 문자열은'/'로 감싸서, 파라미터로 들어가는 값이 정규식임을 알려준다. 그 다음 뒤에는 'g'라는 문자를 붙여주면 된다.
+
+      //여기서 g는 'global match'라는 의미로 사용되었다.
+
+      //Lecture Answer
+
+      //첫번째 풀이
+
+      function solution(s) {
+        let answer = "";
+        for (let x of s) {
+          if (x === "A") answer += "#";
+          else answer += x;
+        }
+        return answer;
+      }
+
+      //두번째 풀이
+
+      function solution(s) {
+        let answer = s;
+        answer = answer.replace(/A/g, "#");
+        return answer;
+      }
+
+      //문자를 더해가지고 첫번째 풀이처럼 구할 수 있는건 생각하지 못했다.
+
+      // 여기서 answer=s는 s가 string이기 때문에 값을 복사(깊은복사) 하는거지 배열처럼 주소참조(얕은복사)를 하는 것이 아니다. 그러므로 s = s.replace(/A/g, '#')을 해도 answer의 값이 변하지 않는다.
+
+      //배열도 slice를 통해 깊은 복사를 할 수 있긴 하다.
+    </script>
+  </body>
+</html>
