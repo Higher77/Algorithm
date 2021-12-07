@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 한 개의 문자열을 입력받고, 특정 문자를 입력받아 해당 특정문자가 입력받은 문자열에 몇 개 존재하는지 알아내는 프로그램을 작성하세요. 문자열의 길이는 100을 넘지 않습니다.
+
+      //My Answer
+
+      function solution(s, t) {
+        let answer;
+        let array = [];
+
+        for (let i of s) {
+          if (i === t) array.push(i);
+        }
+
+        answer = array.length;
+
+        return answer;
+      }
+
+      let str = "COMPUTERPROGRAMMING";
+      console.log(solution(str, "R"));
+
+      //Lecture Answer
+
+      //첫번째 풀이
+
+      function solution(s, t) {
+        let answer = 0;
+        for (let x of s) {
+          if (x === t) answer++;
+        }
+        return answer;
+      }
+
+      //두번째 풀이
+
+      function solution(s, t) {
+        let answer = s.split(t).length;
+        return answer - 1;
+      }
+
+      //두번째 풀이로 내장함수 split을 이용하여 문자열을 쪼갠 후 나눠진 길이에서 -1을 하여 답을 구하는게 신선한 풀이로 다가왔다.
+    </script>
+  </body>
+</html>
