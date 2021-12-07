@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 한 개의 문자열을 입력받고, 특정 문자를 입력받아 해당 특정문자가 입력받은 문자열에 몇 개 존재하는지 알아내는 프로그램을 작성하세요. 문자열의 길이는 100을 넘지 않습니다.
+
+      //My Answer
+
+      function solution(s) {
+        let answer = 0;
+        for (let i of s) {
+          if (i === i.toUpperCase()) answer++;
+        }
+
+        return answer;
+      }
+
+      //toUpperCase를 이용하여 i의 요소가 대문자라면 answer에 +1을 하는 로직을 짰다.
+
+      let str = "KoreaTimeGood";
+      console.log(solution(str));
+
+      //Lecture Answer
+
+      //첫번째 풀이
+
+      function solution(s) {
+        let answer = 0;
+        for (let x of s) {
+          if (x === x.toUpperCase()) answer++;
+        }
+
+        return answer;
+      }
+
+      //두번째 풀이
+      function solution(s) {
+        let answer = 0;
+        for (let x of s) {
+          let num = x.charCodeAt(); // 해당 문자의 아스키코드를 넘겨준다.
+          if (num >= 65 && num <= 90) answer++; //대문자의 아스키코드 65(A) ~ 90(Z)
+        }
+
+        return answer;
+      }
+
+      //아스키코드로 문제를 푸는 방법도 있다. 대문자의 아스키코드는 65(A)~90(Z) , 소문자는 97(a)~122(z)로 개발자라면 이정도는 외워두는 편이 좋다.
+    </script>
+  </body>
+</html>
