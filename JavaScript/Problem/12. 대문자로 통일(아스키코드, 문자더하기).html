@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 대문자와 소문자가 같이 존재하는 문자열을 입력받아 대문자로 모두 통일하여 문자열을 출력하는 프로그램을 작성하세요.
+      //My Answer
+
+      function solution(str) {
+        let answer = "";
+
+        for (let i of str) {
+          let num = i.charCodeAt();
+          if (num >= 97 && num <= 122) {
+            answer += i.toUpperCase();
+          } else {
+            answer += i;
+          }
+        }
+
+        return answer;
+      }
+
+      let str = "ItisTimeToStudy";
+      console.log(solution(str));
+
+      //저번 강의에서 알려준 아스키코드를 이용한 풀이를 적용하여 풀어보았다.
+
+      let str = "KoreaTimeGood";
+      console.log(solution(str));
+
+      //Lecture Answer
+
+      //첫번째 풀이
+
+      function solution(s) {
+        let answer = "";
+        for (let x of s) {
+          if (x === x.toLowerCase()) answer += x.toUpperCase();
+          else answer += x;
+        }
+
+        return answer;
+      }
+
+      //두번째 풀이
+      function solution(s) {
+        let answer = "";
+        for (let x of s) {
+          let num = x.charCodeAt();
+          if (num >= 97 && num <= 122) answer += String.fromCharCode(num - 32);
+          else answer += x;
+        }
+
+        return answer;
+      }
+
+      //'a'의 아스키코드가 97이고 'A'의 아스키코드가 65이므로 소문자를 대문자로 바꾸려면 -32를 해주면 된다.
+      //아스키코드를 문자열로 바꾸기 위해서 String.fromCharCode를 사용한다.
+    </script>
+  </body>
+</html>
