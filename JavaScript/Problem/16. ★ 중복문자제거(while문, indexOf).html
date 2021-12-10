@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 소문자로 된 한개의 문자열이 입력되면 중복된 문자를 제거하고 출력하는 프로그램을 작성하세요. 제거된 문자열의 각 문자는 원래 문자열의 순서를 유지합니다.
+
+      //My Answer
+
+      function solution(s) {
+        let answer = "";
+        let strarray = s.split("");
+        for (let i = 0; i < s.length; i++) {
+          for (let j = i + 1; j < s.length; j++) {
+            if (s[i] === s[j]) {
+              strarray.splice(j, 1);
+            }
+            console.log(strarray);
+          }
+        }
+
+        return answer;
+      }
+      console.log(solution("ksekkset"));
+
+      // 문자열을 배열로 만들고 거기서 중복되는걸 지울려고 했다.
+      // [ 'k', 's', 'e', 'k', 'k', 's', 'e', 't' ]
+      // [ 'k', 's', 'e', 'k', 'k', 's', 'e', 't' ] 두번째 중복된 k의 index는 5
+      // [ 'k', 's', 'e', 'k', 's', 'e', 't' ] 첫번째 중복된 k를 지운 후 한칸씩 당겨짐
+      // [ 'k', 's', 'e', 'k', 'e', 't' ] 그래서 두번째 k가 지워지지않고 s가 지워짐
+      //그런데 첫번째 중복되는 k는 지웠지만 두번째 중복되는 k를 지울 때 문제가 생긴다.
+      //그래서 ksek가 남는다. s.length를 strarray.length로 바꾸고 해봐도 같은 결과가 나왔다.
+
+      //Lecture Answer
+
+      //첫번째 풀이
+
+      function solution(s) {
+        let answer = "";
+        for (let i = 0; i < s.length; i++) {
+          //console.log(s[i], i, s.indexOf(s[i]));
+          if (s.indexOf(s[i]) === i) answer += s[i];
+        }
+        return answer;
+      }
+
+      //두번째 풀이
+
+      function solution(s) {
+        let answer;
+        let mid = Math.floor(s.length / 2);
+        if (s.length % 2 === 1) answer = s.substr(mid, 1);
+        else answer = s.substr(mid - 1, 2);
+        return answer;
+      }
+
+      //indexOf(찾는 문자열, 인덱스) 인덱스 번호부터 찾는 문자열 중 처음발견한 인덱스 번호를 리턴해준다. 인덱스가 없으면 0번부터 탐색한다. 일치하는 것이 없을 땐 -1이 리턴된다.
+
+      //i가 3일 때  s[i] = k , i = 3 , s.indexOf(s[i]) = 0 이므로 i와 s.indexOf(s[i])가 일치하지 않아 중복인걸 알 수 있다.
+      //
+      //
+      //10번 문제 문자 찾기의 보충.
+
+      function solution(s) {
+        let answer = 0;
+        let pos = s.indexOf("k");
+        while (pos !== -1) {
+          answer++;
+          pos = s.indexOf("k", pos + 1);
+        }
+        return answer;
+      }
+
+      console.log(solution("ksekkset"));
+
+      //다음과 같은 방법으로도 문자열의 수를 구할 수도 있다.
+      //while과 for문에 관한 차이는 블로그 https://higher77.tistory.com/99 에서 볼 수 있다.
+    </script>
+  </body>
+</html>
