@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. N(1<=N<=100)명의 학생의 국어점수가 입력되면 각 학생의 등수를 입력된 순서대로 출력하는 프로그램을 작성하세요.
+
+      //첫 줄에 N(3<=N<=1000)이 입력되고, 두 번째 줄에 국어점수를 의미하는 N개의 정수가 입력된다. 같은 점수가 입력될 경우 높은 등수로 동일 처리한다. 즉 가장 높은 점수가 92점인데 92점이 3명 존재하면 1등이 3명이고 그 다음 학생은 4등이 된다.
+
+      //입력된 순서대로 등수를 출력한다.
+
+      //My Answer
+
+      function solution(arr) {
+        let answer = [];
+        let rank = arr.length;
+        for (let i = 0; i < arr.length; i++) {
+          for (let j = 0; j < arr.length; j++) {
+            if (arr[i] > arr[j]) rank--;
+          }
+          answer.push(rank);
+          rank = arr.length;
+        }
+        return answer;
+      }
+
+      let arr = [87, 89, 92, 100, 76, 92, 92];
+      console.log(solution(arr));
+
+      //Lecture Answer
+
+      //첫번째 풀이
+
+      let arr = [87, 89, 92, 100, 76, 92, 92];
+      console.log(solution(arr));
+
+      function solution(arr) {
+        let n = arr.length;
+        let answer = Array.from({ length: n }, () => 1);
+        for (let i = 0; i < n; i++) {
+          for (let j = 0; j < n; j++) {
+            if (arr[j] > arr[i]) answer[i]++;
+          }
+        }
+        return answer;
+      }
+
+      //anrswer의 초기값은 [1,1,1,1,1]로 초기화 되어있어야 한다. 그래서 Array.from을 사용.
+      //Array.from(arrayLike[, mapFn[, thisArg]])
+      //Array.from({length:4})를 하면 [ undefined, undefined, undefined, undefined ]가 생성된다.
+
+      //https://perlpark.github.io/articles/array-from/
+
+      //https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/from
+
+      //from() 메서드의 length 속성은 1입니다. <= 이 말은 function.length를 하면 1이 나온다는 소리같다. 실제로 Array.from.length하면 1이 나온다. 이 1은 함수에 반드시 들어가야하는 인자의 수를 말한다.
+
+      //ES2015 이후, 클래스 구문은 내장 및 새 클래스의 상속을 가능케 했습니다. 그 결과로 Array.from과 같은 정적 메서드는 Array의 서브클래스에 의해 상속되며, Array 대신 자신의 인스턴스를 만듭니다. (영문으로 보는걸 추천)
+
+      //In ES2015, the class syntax allows sub-classing of both built-in and user-defined classes. As a result, static methods such as Array.from() are "inherited" by subclasses of Array, and create new instances of the subclass, not Array.
+
+      //Array 서브클래스에 from()메소드가 있다는 말이 아니다. 내가 클래스를 만든 후 Array를 상속받는 것. 그렇게 하면 from과 같은 정적메서드를 사용하게되면 본래라면 새로운 Array 객체를 만드는데 내가 만든 클래스(상속받았기 때문에 서브클래스)의 인스턴스(객체)를 만들게 된다는 말을 하는 것이다.
+    </script>
+  </body>
+</html>
