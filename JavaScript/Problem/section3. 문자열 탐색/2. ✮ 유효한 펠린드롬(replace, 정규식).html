@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 앞에서 읽을 때나 뒤에서 읽을 때나 같은 문자열을 펠린드롬이라고 합니다. 문자열이 입력되면 해당 문자열이 펠린드롬이면 "YES", 아니면 "NO"를 출력하는 프로그램을 작성하세요.
+      //단, 회문을 검사할 때 알파벳만 가지고 회문을 검사하며, 대소문자를 구분하지 않습니다. 알파벳 이외의 문자들은 무시합니다.
+
+      //첫 줄에 정수 길이 100을 넘지 않는 공백이 없는 문자열이 주어집니다.
+
+      //My Answer
+
+      function solution(s) {
+        let answer = "YES";
+        let purestr = "";
+
+        for (let x of s.toLowerCase()) {
+          let num = x.charCodeAt();
+          if (num >= 97 && num <= 122) purestr += x;
+        }
+
+        for (let i = 0; i < Math.floor(purestr.length / 2); i++) {
+          if (purestr[i] !== purestr[purestr.length - 1 - i]) answer = "NO";
+        }
+
+        return answer;
+      }
+
+      let str = "found7, time: study; Yduts; emit, 7Dnuof";
+      console.log(solution(str));
+
+      //맨처음 문자열을 제외한 요소(공백,쉼표,콜론)을 아스키코드로 걸러낸 후 문자열만 purestr에 저장했다. 그 다음 1문제에서 풀었던 것처럼 floor를 이용하여 똑같이 풀었다.
+      //
+      //
+      //Lecture Answer
+      //
+      //
+      //첫번째 풀이
+
+      function solution(s) {
+        let answer = "YES";
+        s = s.toLowerCase().replace(/[^a-z]/g, "");
+        if (s.split("").reverse().join("") !== s) return "NO";
+        return answer;
+      }
+
+      //정규식을 공부해야겠다... 이렇게 간단하게 풀수 있는걸 너무 돌아가서 풀었다.
+      // '/ /'안에다가 조건을 쓰는 것 ^는 부정의 의미 a-z는 조건범위 g는 글로벌(전체) 여기서 의미는 '전체 문자열에서 소문자a-z가 아닌것'을 의미한다. 그리고 그걸 ""으로 없애주는 것!
+    </script>
+  </body>
+</html>
