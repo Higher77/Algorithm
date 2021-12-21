@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 알파벳 대문자로 이루어진 문자열을 입력받아 같은 문자가 연속으로 반복되는 경우 반복되는 문자 바로 오른쪽에 반복 횟수를 표기하는 방법으로 문자열을 압축하는 프로그램을 작성하시오. 단 반복횟수가 1인 경우 생략합니다.
+
+      //첫 줄에 문자열이 주어진다. 문자열의 길이는 100을 넘지 않는다.
+
+      //My Answer
+
+      function solution(n, arr) {
+        let answer = 0,
+          max = Number.MIN_SAFE_INTEGER;
+        let maxarr = [];
+
+        for (let x of arr) {
+          let tot = 0;
+          for (let y of String(x)) {
+            tot += Number(y);
+          }
+
+          if (max < tot) max = tot;
+        }
+
+        //max값 구하고
+
+        for (let x of arr) {
+          let tot = 0;
+          for (let y of String(x)) {
+            tot += Number(y);
+          }
+
+          if (max === tot) maxarr.push(x);
+        }
+
+        //max값하고 같은 요소를 maxarr에 저장했다.
+
+        answer = Math.max(...maxarr);
+
+        return answer;
+      }
+
+      let arr = [128, 460, 603, 40, 521, 137, 123];
+      console.log(solution(7, arr));
+
+      //같은 for문을 연속으로 두 번 사용해서 쓸데없는 코드 낭비가 많다.;;
+      //
+      //
+      //Lecture Answer
+      //
+      //
+      //첫번째 풀이
+
+      function solution(n, arr) {
+        let answer,
+          max = Number.MIN_SAFE_INTEGER;
+
+        for (let x of arr) {
+          let sum = 0,
+            tmp = x;
+
+          while (tmp) {
+            //tmp의 몫이 0이 될 때까지
+            sum += tmp % 10;
+            tmp = Math.floor(tmp / 10);
+          }
+
+          if (sum > max) {
+            max = sum;
+            answer = x;
+          } else if (sum === max) {
+            //max값이 같은경우
+            if (x > answer) answer = x; //x값이 기존의 answer보다 크면 대체
+          }
+        }
+        return answer;
+      }
+      //
+      //
+      //두번째 풀이
+
+      function solution(n, arr) {
+        let answer,
+          max = Number.MIN_SAFE_INTEGER;
+
+        for (let x of arr) {
+          let sum = x.toString.split("").reduce((a, b) => a + Number(b), 0);
+
+          if (sum > max) {
+            max = sum;
+            answer = x;
+          } else if (sum === max) {
+            if (x > answer) answer = x;
+          }
+        }
+        return answer;
+      }
+    </script>
+  </body>
+</html>
