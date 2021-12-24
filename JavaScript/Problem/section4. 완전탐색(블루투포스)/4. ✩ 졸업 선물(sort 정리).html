@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 선생님은 올해 졸업하는 반 학생들에게 졸업선물을 주려고 합니다. 학생들에게 인터넷 쇼핑몰에서 각자 원하는 상품을 골라 그 상품의 가격과 배송비를 제출하라고 했습니다. 선생님이 가지고 있는 예산은 한정되어 있습니다.
+      //현재 예산으로 최대 몇 명의 학생에게 선물을 사줄 수 있는지 구하는 프로그램을 작성하세요. 선생님은 상품 하나를 50% 할인해서(반 가격) 살 수 있는 쿠폰을 가지고 있습니다. 배송비는 할인에 포함되지 않습니다.
+
+      //첫 번째 줄에 반 학생수 N(1<=N<=1000)과 예산 M(1<=M<=100,000,000)이 주어진다.
+      //두 번째 줄부터 N줄에 걸쳐 각 학생들이 받고 싶은 상품의 가격과 배송비가 입력됩니다.
+      //상품가격과 배송비는 각각 100,000을 넘지 않습니다. 상품가격은 짝수로만 입력됩니다.
+
+      //My Answer
+
+      function solution(m, product) {
+        let answer = 0;
+
+        for (let k = 0; k < product.length; k++) {
+          //경우의 수 5가지를 모두 탐색
+
+          let totarr = [];
+          let tmp = m;
+          let res = 0;
+
+          for (let i = 0; i < product.length; i++) {
+            let tot = 0;
+
+            for (let j = 0; j < product[0].length; j++) {
+              if (k === i && j === 0) tot += product[i][j] / 2;
+              //k번째 상품이 50%할인 할 경우 이므로 i와 k가 같아야한다. 그리고 상품은 0번째 인덱스 이므로 j=0이여야 한다.
+              else tot += product[i][j];
+            }
+            totarr.push(tot);
+          }
+
+          totarr = totarr.sort((a, b) => a - b); //오름차순으로 sort한 후 차례대로 값을 빼면 최대로 구매할 수 있는 상품의 수가 나온다.
+
+          for (let s = 0; s < totarr.length; s++) {
+            tmp -= totarr[s];
+            if (tmp >= 0) {
+              res++;
+            } else {
+              if (res > answer) answer = res;
+              break;
+            }
+          }
+        }
+
+        return answer;
+      }
+      let arr = [
+        [6, 6],
+        [2, 2],
+        [4, 3],
+        [4, 5],
+        [10, 3],
+      ];
+      console.log(solution(28, arr));
+      //
+      //
+      //Lecture Answer
+      //
+      //
+      //첫번째 풀이
+
+      function solution(m, product) {
+        let answer = 0;
+        let n = product.length;
+        product.sort((a, b) => a[0] + a[1] - (b[0] + b[1])); //오름차순 sort로 합이 작은 순서대로 한 후 차례대로 money에서 뺄셈을 하면 최대로 구매할 수 있는 상품의 수가 나온다.(배열을 정렬하기 때문에 오름차순을 할 때 (a[0]+a[1]) - (b[0]+b[1])을 해준다.)
+        for (let i = 0; i < n; i++) {
+          let money = m - (product[i][0] / 2 + product[i][1]); //50%하는 상품의 경우의 수 모두 탐색
+          let cnt = 1; //할인상품을 돈에서 뺏으니 cnt는 1부터 시작.
+          for (let j = 0; j < n; j++) {
+            if (j !== i && product[j][0] + product[j][1] > money) break;
+            if (j !== i && product[j][0] + product[j][1] <= money) {
+              ////할인상품은 이미 계산했으니 제외해야하니 j!==i를 해야한다.
+              money -= product[j][0] + product[j][1];
+              cnt++;
+            }
+          }
+          answer = Math.max(answer, cnt);
+        }
+        return answer;
+      }
+
+      //let a = [4,5,2,8,9]
+      //a.sort((a,b) => 1)이면 [4,5,2,8,9]
+      //a.sort((a,b) => 0)이면 [4,5,2,8,9]
+      //a.sort((a,b) => -1)이면 [9,8,2,5,4] 리버스효과
+      //a.sort((a,b) => a-b)이면 [2,4,5,8,9] 오름차순정렬
+      //a.sort((a,b) => b-a)이면 [9,8,5,4,2] 내림차순정렬
+    </script>
+  </body>
+</html>
