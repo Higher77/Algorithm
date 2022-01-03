@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 괄호가 입력되면 올바른 괄호이면 "YES", 올바르지 않으면 "NO"를 출력합니다.
+      //  '(())()' 이것은 괄호의 쌍이 올바르게 위치하는 거지만, '(()()))'은 올바른 괄호가 아니다.
+
+      //첫 번째 줄에 괄호 문자열이 입력됩니다. 문자열의 최대 길이는 30이다.
+
+      //My Answer
+
+      function solution(m, arr) {
+        return answer;
+      }
+      //처음보는 문제의 유형이여서 그런가 풀이법을 떠올리지 못했다... ㅠㅠ;
+
+      ////My Answer + lecture Hint
+
+      function solution(s) {
+        let answer = "YES";
+        let stack = [];
+
+        for (let i = 0; i < s.length; i++) {
+          //여는괄호'('면 stack에 push로 쌓고 닫는괄호면')' stack에서 '('와 짝꿍이기 때문에 하나를 pop으로 꺼낸다.
+          if (s[i] === "(") stack.push(s[i]);
+          else {
+            if (!stack.pop()) answer = "NO"; //undefinded가 나오면 닫는괄호의 짝이 없는 것이므로 "NO"
+          }
+        }
+
+        if (stack[0]) answer = "NO"; //stack에 열린괄호가 남으면 짝이 없어 처리되지 못했다는 거기 떄문에 "NO"
+
+        return answer;
+      }
+
+      let a = "(()(()))(()";
+      console.log(solution(a));
+      //
+      //
+      //Lecture Answer
+      //
+      //
+      //첫번째 풀이
+
+      function solution(s) {
+        let answer = "YES";
+        stack = [];
+        //여는괄호'('면 stack에 push로 쌓고 닫는괄호면')' stack에서 '('와 짝꿍이기 때문에 하나를 pop으로 꺼낸다.
+        for (let x of s) {
+          if (x === "(") stack.push(x);
+          else {
+            if (stack.length === 0) return "NO"; //stack의 길이가 0이면 닫는괄호의 짝이 없는 것이므로 "NO"
+            stack.pop();
+          }
+        }
+        if (stack.length > 0) return "NO"; //stack에 열린괄호가 남으면 짝이 없어 처리되지 못했다는 거기 떄문에 "NO"
+        return answer;
+      }
+
+      //스택이란? 들어가는 입구와 나오는 출구가 동일 지점이다. 나중에 들어간게 먼저나옴(Last In First Out)LIFO라고함 (구덩이를  생각하자)
+      //배열을 쓸 때 push로 자료를 넣고 꺼낼 땐 pop을 사용
+
+      //큐란 먼저 들어간게 먼저 나오는 것.(First In First Out) FIFO(기찻길)
+    </script>
+  </body>
+</html>
