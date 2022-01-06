@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      ////문제. 해당문제는 pdf를 확인하여 풀어주세요. (섹션 6. 자료구조(스택,큐) 5번문제)
+
+      //My Answer + lecture Hint
+
+      function solution(s) {
+        let answer = 0;
+        let stack = [];
+
+        for (let i = 0; i < s.length; i++) {
+          if (s[i] === "(") stack.push(s[i]);
+          else if (s[i] === ")" && s[i - 1] === "(") {
+            stack.pop();
+            answer += stack.length;
+          } else {
+            stack.pop();
+            answer++;
+          }
+        }
+
+        return answer;
+      }
+
+      let a = "()(((()())(())()))(())";
+      console.log(solution(a));
+      //
+      //
+      //Lecture Answer
+      //
+      //
+      //첫번째 풀이
+
+      function solution(s) {
+        let answer = 0;
+        let stack = [];
+        for (let i = 0; i < s.length; i++) {
+          if (s[i] === "(") stack.push("(");
+          else {
+            stack.pop();
+            //stack에 쌓인 '('의 개수가 잘린 막대기의 수 이다.
+            if (s[i - 1] === "(") answer += stack.length;
+            else answer++; // 쇠막대기 하나가 끝났을 때 그 쇠막대기의 남은 1조각을 더해준다.
+            //stack.pop(); 이 위치에 하면 레이저까지 카운팅한다.
+          }
+        }
+        return answer;
+      }
+    </script>
+  </body>
+</html>
