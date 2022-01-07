@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. N개이 숫자가 입력되면 오름차순으로 정렬하여 출력하는 프로그램을 작성하세요. 정렬하는 방법은 버블정렬입니다.
+
+      //첫 번째 줄에 자연수 N(1<=N<=100)이 주어집니다.
+      //두 번째 줄에 N개의 자연수가 공백을 사이에 두고 입력됩니다. 각 자연수는 정수형 범위 안에 있습니다.
+
+      //오름차순으로 정렬된 수열을 출력합니다.
+
+      //My Answer
+
+      function solution(arr) {
+        let answer = arr;
+
+        //i는 5번만 돌아도 된다.
+        for (let i = 0; i < arr.length - 1; i++) {
+          for (let j = 0; j < arr.length - i - 1; j++) {
+            if (arr[j] > arr[j + 1])
+              [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+          }
+        }
+
+        return answer;
+      }
+
+      let arr = [13, 5, 11, 7, 23, 15];
+      console.log(solution(arr));
+      //
+      //
+      //Lecture Answer
+      //
+      //
+      //첫번째 풀이
+
+      function solution(arr) {
+        let answer = arr;
+        for (let i = 0; i < arr.length - 1; i++) {
+          for (let j = 0; j < arr.length - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+              [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+            }
+          }
+        }
+        return answer;
+      }
+      //버블정렬은 이웃한 두 수끼리 비교해주는 것                   0 1  2 3  4  5
+      //i=0 일 때 j는 0~4까지 비교해주면 요소 23의 자리가 확정된다. [5,11,7,13,15,23]
+      //i=1 일 때 j는 23의 자리는 확정됐으니 그 요소를 제외하고 0~3까지만 확인하면된다. [5,7,11,13,15,23]
+      //i=2 일 때 j는 0~2까지
+      //i=3 일 때 j는 0~1까지
+      //i=4 일 때 j는 0만 확인
+
+      //한 번 for문을 돌면 한 요소의 자리가 확정되어 j의 횟수가 줄어든다.
+      //그래서 j의 for문은 j<arr.length-i-1이 된다.
+      //i는 5번만 돌아도 전부 요소의 위치가 정해지기 때문에(5번째를 도는 순간 남는 요소는 1개이기 떄문에 자동으로 위치가 결정된다.)
+      //i<arr.length-1이다.
+    </script>
+  </body>
+</html>
