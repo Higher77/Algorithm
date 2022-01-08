@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. N개이 숫자가 입력되면 오름차순으로 정렬하여 출력하는 프로그램을 작성하세요. 정렬하는 방법은 버블정렬입니다.
+
+      //첫 번째 줄에 자연수 N(1<=N<=100)이 주어집니다.
+      //두 번째 줄에 N개의 자연수가 공백을 사이에 두고 입력됩니다. 각 자연수는 정수형 범위 안에 있습니다.
+
+      //오름차순으로 정렬된 수열을 출력합니다.
+
+      //My Answer
+
+      function solution(arr) {
+        let answer = arr;
+
+        for (let i = 1; i < arr.length; i++) {
+          let tmp = arr[i];
+          for (let j = i - 1; j >= 0; j--) {
+            if (arr[j] > tmp) {
+              arr[j + 1] = arr[j];
+              arr[j] = tmp;
+            }
+          }
+        }
+
+        return answer;
+      }
+
+      let arr = [11, 7, 5, 6, 10, 9];
+      console.log(solution(arr));
+
+      //[5,7,11,6,10,9] i=3일 때
+      //5,7,6,11,10,9
+      //5,6,7,11,10,9
+      //5,6,7,11,10,9 <= 5<6이므로
+      //
+      //
+      //Lecture Answer
+      //
+      //
+      //첫번째 풀이
+
+      function solution(arr) {
+        let answer = arr;
+        for (let i = 0; i < arr.length; i++) {
+          let tmp = arr[i], //삽입 할 요소를 tmp에 저장해둔다.
+            j;
+          // j는 i-1부터 0까지를 순회한다.
+          for (j = i - 1; j >= 0; j--) {
+            if (arr[j] > tmp) arr[j + 1] = arr[j];
+            else break; //arr[j]<tmp일 시 반복문을 끝낸다.
+          }
+          arr[j + 1] = tmp;
+        }
+        return answer;
+      }
+
+      //요소가 자기 자리를 찾아 삽입 되어서 삽입정렬이다.
+
+      //[5,7,11,6,10,9] i=3일 때
+      //5,7,11,11,10,9
+      //5,7,7,11,10,9
+      //5,6,7,11,10,9 arr[j+1] = tmp (arr[1] = 6)
+    </script>
+  </body>
+</html>
