@@ -73,12 +73,15 @@
             max = sum;
             answer = x;
           } else if (sum === max) {
-            //max값이 같은경우
+            //자릿수의 합이 같은경우
             if (x > answer) answer = x; //x값이 기존의 answer보다 크면 대체
           }
         }
         return answer;
       }
+
+      let arr = [128, 460, 603, 40, 521, 137, 123];
+      console.log(solution(7, arr));
       //
       //
       //두번째 풀이
@@ -99,6 +102,9 @@
         }
         return answer;
       }
+
+      let arr = [128, 460, 603, 40, 521, 137, 123];
+      console.log(solution(7, arr));
     </script>
   </body>
 </html>
