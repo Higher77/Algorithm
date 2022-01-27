@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제.
+      //철수는 그의 바둑이들을 데리고 시장에 가려고 한다. 그런데 그의 트럭은 C킬로그램 넘게 태 울수가 없다. 철수는 C를 넘지 않으면서 그의 바둑이들을 가장 무겁게 태우고 싶다.
+      //N마리의 바둑이와 각 바둑이의 무게 W가 주어지면, 철수가 트럭에 태울 수 있는 가장 무거운 무게를 구하는 프로그램을 작성하세요.
+
+      //첫 번째 줄에 자연수 C(1<=C<=100,000,000)와 N(1<=N<=30)이 주어집니다.
+      //둘째 줄부터 N마리 바둑이의 무게가 주어진다.
+
+      //첫 번째 줄에 가장 무거운 무게를 출력한다.
+
+      //My Answer
+
+      function solution(m, ps, pt) {
+        let answer = 0;
+        let n = ps.length;
+
+        function DFS(L, s, t) {
+          if (L === n) {
+            if (t <= m) {
+              answer = Math.max(answer, s);
+            }
+          } else {
+            //문제를 풀었다.
+            DFS(L + 1, s + ps[L], t + pt[L]);
+            //문제를 안풀었다.
+            DFS(L + 1, s, t);
+          }
+        }
+
+        DFS(0, 0, 0);
+        return answer;
+      }
+
+      let ps = [10, 25, 15, 6, 7]; //점수
+      let pt = [5, 12, 8, 3, 4]; //시간
+      console.log(solution(20, ps, pt));
+
+      //문제를 풀었다. 못풀었다로 분기점. 제한시간 20분.
+      //
+      //
+      //Lecture Answer
+      //
+      //
+      //첫번째 풀이
+
+      function solution(m, ps, pt) {
+        let answer = Number.MIN_SAFE_INTEGER;
+        let n = ps.length;
+        function DFS(L, sum, time) {
+          if (time > m) return;
+          if (L === n) {
+            answer = Math.max(answer, sum);
+          } else {
+            DFS(L + 1, sum + ps[L], time + pt[L]);
+            DFS(L + 1, sum, time);
+          }
+        }
+
+        DFS(0, 0, 0);
+        return answer;
+      }
+
+      let ps = [10, 25, 15, 6, 7];
+      let pt = [5, 12, 8, 3, 4];
+      console.log(solution(20, ps, pt));
+    </script>
+  </body>
+</html>
