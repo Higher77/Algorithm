@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제.
+      //1부터 N까지 번호가 적힌 구슬이 있습니다. 이 중 중복을 허락하여 M번을 뽑아 일렬로 나열 하는 방법을 모두 출력합니다.
+
+      //첫 번째 줄에 자연수 N(3<=N<=10)과 M(2<=M<=N) 이 주어집니다.
+
+      //첫 번째 줄에 결과를 출력합니다. 맨 마지막 총 경우의 수를 출력합니다.
+      //출력순서는 사전순으로 오름차순으로 출력합니다.
+
+      //My Answer
+
+      function solution(m, arr) {
+        let answer = Number.MAX_SAFE_INTEGER;
+        let n = arr.length;
+
+        function DFS(L, sum) {
+          if (sum > m) return;
+          if (sum === m) {
+            answer = Math.min(answer, L);
+          } else {
+            for (let i = 0; i < n; i++) {
+              DFS(L + 1, sum + arr[i]);
+            }
+          }
+        }
+
+        DFS(0, 0);
+
+        return answer;
+      }
+
+      let arr = [1, 2, 5];
+      console.log(solution(15, arr));
+      //
+      //
+      //Lecture Answer
+      //
+      //
+      //첫번째 풀이
+
+      function solution(m, arr) {
+        let answer = Number.MAX_SAFE_INTEGER;
+        let n = arr.length;
+        function DFS(L, sum) {
+          if (sum > m) return;
+          if (L >= answer) return; // Edge cutting 엣지커팅
+          if (sum === m) {
+            answer = Math.min(answer, L);
+          } else {
+            for (let i = 0; i < n; i++) {
+              DFS(L + 1, sum + arr[i]);
+            }
+          }
+        }
+        DFS(0, 0);
+        return answer;
+      }
+
+      let arr = [1, 2, 5];
+      console.log(solution(15, arr));
+
+      //Edge cutting 엣지커팅
+      //m = 15일 때는 Level 이 1로만 더하면 15레벨까지가서 3의 15제곱에서 끝나지만
+      //m = 60이면 3의 60제곱까지가면 너무 경우의 수가 많아져 필요없는 가지는 짜르는 엣지커팅이 필요하다.
+
+      //실제로 if(L >= answer) return; 을 없애고 solution(40,arr)을 하면 계산하는데 시간이 너무 오래 걸린다.
+
+      //위와같은 경우에서는 L 값이 answer보다 같거나 크다면 더이상 그 밑의 트리를 뻗어서 L값을 더 할 필요가 없으므료
+      //return하여 최적화를 해주는 것이다.
+    </script>
+  </body>
+</html>
