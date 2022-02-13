@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      //문제. 현수는 송아지를 잃어버렸다. 다행히 송아지에는 위치추적기가 달려 있다. 현수의 위치와 송아 지의 위치가 수직선상의 좌표 점으로 주어지면 현수는 현재 위치에서 송아지의 위치까지 다음 과 같은 방법으로 이동한다. 송아지는 움직이지 않고 제자리에 있다.
+      //현수는 스카이 콩콩을 타고 가는데 한 번의 점프로 앞으로 1, 뒤로 1, 앞으로 5를 이동할 수 있다. 최소 몇 번의 점프로 현수가 송아지의 위치까지 갈 수 있는지 구하는 프로그램을 작성 하세요.
+
+      //첫 번째 줄에 현수의 위치 S와 송아지의 위치 E가 주어진다. 직선의 좌표 점은 1부터 10,000 까지이다.
+
+      //점프의 최소횟수를 구한다. 답은 1이상입니다.
+
+      //My Answer
+
+      function solution(s, e) {
+        let answer = 0;
+        let queue = [];
+
+        queue.push(s);
+
+        while (queue.length) {
+          let v = queue.shift();
+
+          if (v === e) break;
+
+          for (let nv of [v + 1, v - 1, v + 5]) {
+            answer++;
+            queue.push(nv);
+          }
+        }
+
+        return answer;
+      }
+
+      console.log(solution(8, 3));
+
+      //BFS에 대해 익숙치 않아 풀이법이 떠오르지 않았다.
+
+      //
+      //
+      //Lecture Answer
+      //
+      //
+      //첫번째 풀이
+
+      function solution(s, e) {
+        // let answer=0;
+
+        // 중복되는 수가 있으면 시간복잡도가 낭비되기 때문에 체크를 통해 똑같은 수가 나오면 생략해버린다.
+        // ex) 0레벨에 8, 2레벨에 8이나오면 이때 8은 생략(어차피 0레벨과 똑같은 트리가 나오기 때문에)
+        let ch = Array.from({ length: 10001 }, () => 0);
+        // distance(거리) 8은 거리가 0,  7,9,13은 거리가 1로 넣어주는 배열이다.
+        let dis = Array.from({ length: 10001 }, () => 0);
+        let queue = [];
+        queue.push(s);
+        ch[s] = 1;
+        dis[s] = 0;
+        while (queue.length) {
+          let x = queue.shift();
+          for (let nx of [x - 1, x + 1, x + 5]) {
+            if (nx === e) return dis[x] + 1; //기존의 거리 + 1
+            if (nx > 0 && nx <= 10000 && ch[nx] === 0) {
+              //중복을 방지하기 위해 ch[nx] === 0 조건 사용
+              ch[nx] = 1;
+              queue.push(nx);
+              dis[nx] = dis[x] + 1; //다음거리 = 기존의 거리 + 1
+            }
+          }
+        }
+        // return answer;
+      }
+
+      console.log(solution(8, 3));
+
+      // let answer = 0 ,return answer은 없어도 정상적으로 답이 출력되어 주석처리하였다.
+
+      //
+      //
+      //두번째 풀이
+
+      function solution(s, e) {
+        // let answer=0;
+        let ch = Array.from({ length: 10001 }, () => 0);
+        let queue = [];
+        queue.push(s);
+        ch[s] = 1;
+        let L = 0; //dis대신 level을 사용.
+        while (queue.length) {
+          let len = queue.length; //0레벨[5] 1레벨[4,6,10] 2레벨[3,9,7,11,15]
+          for (let i = 0; i < len; i++) {
+            let x = queue.shift();
+            for (let nx of [x - 1, x + 1, x + 5]) {
+              if (nx === e) return L + 1;
+              if (nx > 0 && nx <= 10000 && ch[nx] === 0) {
+                ch[nx] = 1;
+                queue.push(nx);
+              }
+            }
+          }
+          L++; //레벨 +1
+        }
+        // return answer;
+      }
+
+      console.log(solution(5, 14));
+
+      // let answer = 0 ,return answer은 없어도 정상적으로 답이 출력되어 주석처리하였다.
+    </script>
+  </body>
+</html>
