@@ -22,35 +22,6 @@
 
       //첫 번째 줄에 섬의 개수를 출력한다.
 
-      //My Answer
-
-      function solution(board) {
-        let answer = 0;
-        let dx = [-1, -1, 0, 1, 1, 1, 0, -1]; //상하
-        let dy = [0, 1, 1, 1, 0, -1, -1, -1]; //좌우
-
-        function DFS(x, y) {}
-
-        arr[0][0] = 0;
-        DFS(0, 0);
-
-        return answer;
-      }
-
-      let arr = [
-        [1, 1, 0, 0, 0, 1, 0],
-        [0, 1, 1, 0, 1, 1, 0],
-        [0, 1, 0, 0, 0, 0, 0],
-        [0, 0, 0, 1, 0, 1, 1],
-        [1, 1, 0, 1, 1, 0, 0],
-        [1, 0, 0, 0, 1, 0, 0],
-        [1, 0, 1, 0, 1, 0, 0],
-      ];
-
-      console.log(solution(arr));
-
-      //DFS하면 if else로만 시작하는걸 떠올려서 다양한 풀이방법을 떠올리지 못했다.
-
       //
       //
       //Lecture Answer
@@ -63,25 +34,33 @@
         let dx = [-1, -1, 0, 1, 1, 1, 0, -1]; //상하
         let dy = [0, 1, 1, 1, 0, -1, -1, -1]; //좌우
         let n = board.length;
-
-        function DFS(x, y) {
-          //지나간 섬은 0으로 처리함, 처음으로 들어오는 섬((0,0) (0,5) (3,3)...)도 0으로 처리해줌.
-          board[x][y] = 0;
-          for (let k = 0; k < 8; k++) {
-            let nx = x + dx[k];
-            let ny = y + dy[k];
-            if (nx >= 0 && nx < n && ny >= 0 && ny < n && board[nx][ny] === 1) {
-              DFS(nx, ny);
-            }
-          }
-        }
+        let queue = [];
 
         for (let i = 0; i < n; i++) {
           for (let j = 0; j < n; j++) {
-            //총 5번의 DFS재귀함수가 호출 된다.
-            if (board[i][j]) {
+            if (board[i][j] === 1) {
+              board[i][j] = 0;
               answer++;
-              DFS(i, j); //(0,0) (0,5) (3,3) (4,0) (6,2)에서 호출됨
+              queue.push([i, j]);
+
+              while (queue.length) {
+                let [x, y] = queue.shift();
+
+                for (let k = 0; k < 8; k++) {
+                  let nx = x + dx[k];
+                  let ny = y + dy[k];
+                  if (
+                    nx >= 0 &&
+                    nx < n &&
+                    ny >= 0 &&
+                    ny < n &&
+                    board[nx][ny] === 1
+                  ) {
+                    board[nx][ny] = 0;
+                    queue.push([nx, ny]);
+                  }
+                }
+              }
             }
           }
         }
@@ -101,7 +80,9 @@
 
       console.log(solution(arr));
 
-      console.log(solution(arr));
+      //영역을 확인하는 것은 BFS로도 풀 수 있다.
+      //(0,0)에서 (0,1) (1,1)를 queue에 넣기 전에 체크를 해줘야한다.
+      //그렇지 않고 queue에 넣은 후 체크해주면 (0,1)에서는 (1,1)이 아직 체크가 안됐기 때문에 (1, 2)뿐만아니라 (1,1)까지
     </script>
   </body>
 </html>
